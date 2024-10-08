@@ -33,6 +33,9 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         Article article = articleList.get(position);
+        String title = article.getTitle() != null ? article.getTitle() : "No Title";
+        String source = article.getSource().getName() != null ? article.getSource().getName() : "Unknown Source";
+        String imageUrl = article.getUrlToImage();
         holder.titleTextView.setText(article.getTitle());
         holder.sourceTextView.setText(article.getSource().getName());
         Picasso.get().load(article.getUrlToImage())
@@ -49,6 +52,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     void updateData(List<Article> data){
         articleList.clear();
         articleList.addAll(data);
+        notifyItemRangeInserted(0, data.size());
     }
 
     @Override
